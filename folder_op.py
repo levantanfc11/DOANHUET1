@@ -14,7 +14,7 @@ def check_folder(path):
     os.chdir(path) #di chuyển đến vị trí thư mục
     kiem_tra_thu_muc = os.listdir(path) #hiện ra các thư mục ở đường dẫn
     if 'History.txt' not in kiem_tra_thu_muc: #Nếu chưa có trong thư mục thì tạo thư mục này
-            line_1 = "\t|  Đây là file ghi lại lịch sử các url đã cào dữ liệu  |\n"
+            line_1 = "Đây là file ghi lại lịch sử các url đã cào dữ liệu  |\n"
             line_2 = "Số thứ tự của đường link chính là số thứ tự của thư mục chứa nội dung đường dẫn đã cào\n"
             line_3 = "<Ví dụ đường dẫn có số thứ tự 1 thì thư mục chứ nội dung là Các trang web được cào>\n\n"
             content = [line_1, line_2, line_3]
@@ -35,21 +35,16 @@ def tao_ten_file_tu_dong(path, url):
     return name_folder
 
 #Hàm lưu nội dung vào file ở thư mục chỉ định
-def luu_file(data,name_folder):
-    path = "C:\\Web Crawler"
+def luu_file(data, name_folder):
+    path = "C:\\Web Crawler\\"
     os.chdir(path + str(name_folder))  # Di chuyển đến thư mục vừa được tạo tự động
-
+    #Nội dung trang HTML cần đưa về
+    line_noidung_1 = str(data[0])
+    url = [line_noidung_1]
+    file = open("HTML.HTML", "w+", encoding="utf-8")
+    for item in url:
+        file.write(item)
+    file.close()
 def luu_lich_su_cac_url(url):
-    path = "C:\\Web Crawler"
+    path = "C:\\Web Crawler\\"
     os.chdir(path)  #di chuyển đến vị trí thư mục
-
-    # Lấy số thứ tự
-    file = open("History.txt", mode='r+', encoding='utf-8')
-    STT = len(file.readlines()) - 6
-    file.close()
-
-    # Ghi thêm đường dẫn vừa được duyệt vào lịch sử
-    file = open("History.txt", mode='a+', encoding='utf-8')
-    content = str(STT) + " -- " + str(url) + "\n"
-    file.write(content)
-    file.close()

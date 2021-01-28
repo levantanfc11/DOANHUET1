@@ -31,10 +31,11 @@ def lay_cac_duong_link(content):
                 if item.find("html", (len(item)-4), len(item)):
                     if item.find("#", 0, 4):
                         if item.find("None", 0 ,4):
-                            if len(item) > 2:
-                                print(item)
+                            if not(item.find("chn", (len(item)-3), len(item))):
+                                if len(item) > 2:
+                                    result.append(item) #thêm vào list kết quả
         if not(item.find("http"), 0, 4):
-                print(item)
+                result.append(item)
     return result
 
 
@@ -53,6 +54,6 @@ def kiem_tra_link(link):
 
 #Hàm chỉnh sửa đường link nếu không đầy đủ
 #Kết quả trả về là 1 đường link đầy đủ
-def chinh_sua_link(link):
+def chinh_sua_link(url):
     url_new = str(url) + item     #Thêm phần còn thiếu là https://... vào
     return url_new

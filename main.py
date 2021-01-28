@@ -30,8 +30,12 @@ def start():
         count += 1 #Đếm số đường dẫn đã duyệt
         history.append(url) #Lưu lại đường dẫn vừa mới nhận được vào lịch sử
         data1 = [page, url, url_new, url_new_max]
-        name_folder = folder_op.tao_ten_file_tu_dong(data_folder,url)
-        folder_op.luu_file(data1, name_folder)
-        folder_op.luu_lai_lich_su_url(url)
+        ten_folder = folder_op.tao_ten_file_tu_dong(data_folder,url)
+        folder_op.luu_file(data1, ten_folder)
+        folder_op.luu_lich_su_cac_url(url)
+
+    print("Đã duyệt\t" + str(count) + "\turl")
+    print("\tBạn muốn cào dữ liệu bắt đầu từ url:",url)
+    print("\tSố trang bạn muốn tải về :", max_page)
 if __name__ == '__main__':
     start()
