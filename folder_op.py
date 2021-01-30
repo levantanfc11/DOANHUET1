@@ -10,14 +10,12 @@ def check_folder(path):
         os.mkdir('Web Crawler')
 
     #Tạo file txt lịch sử các đang đã tải về
-    path = 'C:\\Web Crawler'
+    path = 'C:\\Web Crawler\\'
     os.chdir(path) #di chuyển đến vị trí thư mục
     kiem_tra_thu_muc = os.listdir(path) #hiện ra các thư mục ở đường dẫn
     if 'History.txt' not in kiem_tra_thu_muc: #Nếu chưa có trong thư mục thì tạo thư mục này
-            line_1 = "Đây là file ghi lại lịch sử các url đã cào dữ liệu  |\n"
-            line_2 = "Số thứ tự của đường link chính là số thứ tự của thư mục chứa nội dung đường dẫn đã cào\n"
-            line_3 = "<Ví dụ đường dẫn có số thứ tự 1 thì thư mục chứ nội dung là Các trang web được cào>\n\n"
-            content = [line_1, line_2, line_3]
+            line_1 = "\t\tĐây là file ghi lại lịch sử các url đã tải dữ liệu\n"
+            content = [line_1]
             file = open("History.txt", "w", encoding="utf-8")
             for item in content:
                 file.write(item)
@@ -26,10 +24,10 @@ def check_folder(path):
 #Các hàm
 #Hàm này tạo tên file tự động bắt đầu bằng cụm filename tiếp theo là số các file kết thúc là .html
 def tao_ten_file_tu_dong(path, url):
-    path = "C:\\Web Crawler"
+    path = "C:\\Web Crawler\\"
     os.chdir(path) #di chuyển đến vị trí thư mục
-    const = "Trang_web_đã_cào_dữ_liệu_thứ_"
-    count = len(os.listdir(path)) - 1  # Đếm số file và folder hiện có trong thư mục
+    const = "Trang_web_đã_tải_về_thứ_"
+    count = len(os.listdir(path)) - 0  # Đếm số file và folder hiện có trong thư mục
     name_folder = const + str(count)  # Trang web đã cào dữ liệu thứ + số thứ tự
     os.mkdir(name_folder)  # Tạo thư mục
     return name_folder
@@ -41,10 +39,19 @@ def luu_file(data, name_folder):
     #Nội dung trang HTML cần đưa về
     line_noidung_1 = str(data[0])
     url = [line_noidung_1]
-    file = open("HTML.HTML", "w+", encoding="utf-8")
+    file = open("HTML.txt", "w+", encoding="utf-8")
     for item in url:
         file.write(item)
     file.close()
 def luu_lich_su_cac_url(url):
     path = "C:\\Web Crawler\\"
     os.chdir(path)  #di chuyển đến vị trí thư mục
+    file = open("History.txt", mode='r+', encoding='utf-8')
+    STT = len(file.readlines())
+    file.close()
+
+    # Ghi thêm đường dẫn vừa được duyệt vào lịch sử
+    file = open("History.txt", mode='a+', encoding='utf-8')
+    content = str(STT) + " -- " + str(url) + "\n"
+    file.write(content)
+    file.close()

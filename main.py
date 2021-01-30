@@ -2,7 +2,7 @@
 import folder_op, web_op
 
 def start():
-    url =str(input("Nhập url cần tải :")) #Chứa các đường link chưa duyệt
+    url =str(input("Nhập url cần tải : ")) #Chứa các đường link chưa duyệt
     n = int(input("Nhập giới hạn trang cần tải về :"))
     url_list = [] #Danh sách các đường link hàng chờ
     history=[]  #Chứa các đường link đã duyệt
@@ -25,8 +25,14 @@ def start():
         for item in links:  #Duyệt từng đường link thu được để kiểm tra tính hợp lệ
             if web_op.kiem_tra_link(item) == False: #Kiểm tra tính hợp lệ
                 item = web_op.chinh_sua_link(url, item)
-            url_new.append(item)    #Lưu lại cái file url hợp lệ
-            url_list = url_list + url_new
+                url_new.append(item)
+            else:
+                if (item not in url_list) and (item in history) and (item not in url_new) and (item != url):
+                    if len(url_new)<=url_new_max: #Nếu danh sách đường link mới lớn hơn số lượng tối đa mà danh sách cho phép thì dừng lại
+                        continue
+                    else:
+                        url_new.append(item)    #Thêm vào danh sách mới để chờ duyệt
+        url_list = url_list + url_new
         count += 1 #Đếm số đường dẫn đã duyệt
         history.append(url) #Lưu lại đường dẫn vừa mới nhận được vào lịch sử
         data1 = [page, url, url_new, url_new_max]
@@ -34,8 +40,6 @@ def start():
         folder_op.luu_file(data1, ten_folder)
         folder_op.luu_lich_su_cac_url(url)
 
-    print("Đã duyệt\t" + str(count) + "\turl")
-    print("\tBạn muốn cào dữ liệu bắt đầu từ url:",url)
-    print("\tSố trang bạn muốn tải về :", max_page)
+        print("Đã duyệt\t" + str(count) + "\turl")
 if __name__ == '__main__':
     start()
