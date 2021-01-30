@@ -40,6 +40,6 @@ def start():
         folder_op.luu_file(data1, ten_folder)
         folder_op.luu_lich_su_cac_url(url)
 
-        print("Đã duyệt\t" + str(count) + "\turl")
+        print("Đã duyệt\t", url)
 if __name__ == '__main__':
     start()
